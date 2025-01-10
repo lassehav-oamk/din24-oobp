@@ -4,7 +4,8 @@ const belgium = {
     languages: ['Dutch', 'French', 'German'],
     capital: 'Brussels',
     area: 30689,
-    neighbours: ['France', 'Germany', 'Luxembourg', 'Netherlands']  
+    neighbours: ['France', 'Germany', 'Luxembourg', 'Netherlands'],
+    countryCode: 'BE'
 };
 
 const france = {
@@ -13,7 +14,8 @@ const france = {
     languages: ['French'],
     capital: 'Paris',
     area: 551695,
-    neighbours: ['Belgium', 'Germany', 'Italy', 'Luxembourg', 'Monaco', 'Spain', 'Switzerland']  
+    neighbours: ['Belgium', 'Germany', 'Italy', 'Luxembourg', 'Monaco', 'Spain', 'Switzerland'],
+    countryCode: 'FR'
 };
 
 // Exercise 2
@@ -39,7 +41,8 @@ const arrayOfCountries = [
         languages: ['Finnish', 'Swedish'],
         capital: 'Helsinki',
         area: 338424,
-        neighbours: ['Norway', 'Sweden', 'Russia']
+        neighbours: ['Norway', 'Sweden', 'Russia'],
+        countryCode: 'FI'
     }
 ];
 
@@ -57,4 +60,34 @@ function getMaximumPopulation(countryArray) {
 }
 
 console.log(getMaximumPopulation(arrayOfCountries));
+
+
+// Exercise 4
+
+function getSumOfPopulations(countryArray) {
+    let sum = 0;
+    for(let i = 0; i < countryArray.length; i++) {
+        sum += countryArray[i].population
+    }
+    return sum;
+}
+
+console.log('Sum of populations: ' + getSumOfPopulations(arrayOfCountries));
+
+
+// Exericse 5
+// Desired output ['BE', 'FR', 'FI']
+function getCountryCodes(countryArray) {
+    let resultArrayOfCountryCodes = [];
+
+    for(let i = 0; i < countryArray.length; i++) {
+        resultArrayOfCountryCodes.push(
+            countryArray[i].countryCode
+        );
+    }
+
+    return resultArrayOfCountryCodes;
+}
+
+console.log(getCountryCodes(arrayOfCountries));
 
