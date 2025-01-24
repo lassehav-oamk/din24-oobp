@@ -4,11 +4,15 @@
   "description": "",
   "main": "GradedExercise1StartingTemplate.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc DungeonGame.ts && node DungeonGame.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.10"
   }
 }
