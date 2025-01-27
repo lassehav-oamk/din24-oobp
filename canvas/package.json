@@ -1,0 +1,20 @@
+{
+  "name": "din24-oobp",
+  "version": "1.0.0",
+  "description": "Welcome to the **Object-Oriented Browser Programming** course repository! This repository contains Node.js code examples structured by lessons, focusing on object-oriented programming (OOP) principles applied in the context of browser-based development.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc canvas.ts",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lassehav-oamk/din24-oobp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lassehav-oamk/din24-oobp/issues"
+  },
+  "homepage": "https://github.com/lassehav-oamk/din24-oobp#readme"
+}
