@@ -41,6 +41,7 @@ var Room = /** @class */ (function () {
         this.name = name; // string
         this.description = description; // string
         this.connectingRooms = [];
+        this.enemies = [];
     }
     Room.prototype.addNewRoomConnection = function (roomToAdd) {
         this.connectingRooms.push(roomToAdd);
@@ -57,6 +58,16 @@ var Room = /** @class */ (function () {
     Room.prototype.getConnectingRooms = function () {
         return this.connectingRooms;
     };
+    Room.prototype.addEnemy = function (enemy) {
+        this.enemies.push(enemy);
+    };
+    Room.prototype.getNamesOfEnemies = function () {
+        var resultingNames = [];
+        for (var i = 0; i < this.enemies.length; i++) {
+            resultingNames.push(this.enemies[i].name);
+        }
+        return resultingNames;
+    };
     return Room;
 }());
 var Player = /** @class */ (function () {
@@ -71,7 +82,16 @@ var Player = /** @class */ (function () {
         return this.location;
     };
     Player.prototype.lookAround = function () {
+        if (this.location == undefined) {
+            console.log('Player location is undefined');
+            return;
+        }
         console.log('You are in ' + this.location.description.toLowerCase());
+        console.log('\nEnemies in the room:');
+        var enemyNames = this.location.getNamesOfEnemies();
+        for (var i = 0; i < enemyNames.length; i++) {
+            console.log(enemyNames[i]);
+        }
         console.log('\nThere are doorways leading to:');
         // print the list of names of rooms where doorways are leading to
         var roomNames = this.location.getNamesOfConnectingRooms();
@@ -79,27 +99,52 @@ var Player = /** @class */ (function () {
             console.log(roomNames[i]);
         }
     };
+    /* if this function returns true, the game continues.
+       if this function returns false, the game is finished. */
     Player.prototype.moveToRoomWithName = function (roomName) {
+        if (this.location == undefined) {
+            console.log('Player location is undefined');
+            return false;
+        }
+        if (roomName == "Portal") {
+            return false;
+        }
         var listOfConnectingRoomsFromCurrentLocation = this.location.getConnectingRooms();
         for (var i = 0; i < listOfConnectingRoomsFromCurrentLocation.length; i++) {
             if (listOfConnectingRoomsFromCurrentLocation[i].name == roomName) {
                 this.setLocation(listOfConnectingRoomsFromCurrentLocation[i]);
-                return;
+                return true;
             }
         }
     };
     return Player;
 }());
+var Enemy = /** @class */ (function () {
+    function Enemy(name) {
+        this.name = name;
+    }
+    return Enemy;
+}());
 var entrance = new Room('Entrance to dungeon', 'A cavern with stone stairs leading downwards into darkness');
 var hallway = new Room('Hallway', 'A hallway and it is a long and dark hallway with dark pools of water on the floor and some fungus growing on the walls');
+var chamber = new Room('Chamber', 'A big cavernous chamber with a high ceiling clouded in mist');
+var portal = new Room('Portal', 'A portal to another dimension');
 entrance.addNewRoomConnection(hallway);
+hallway.addNewRoomConnection(chamber);
+chamber.addNewRoomConnection(hallway);
+chamber.addNewRoomConnection(portal);
 var player = new Player();
 player.setLocation(entrance);
+var rat1 = new Enemy("Sewer Rat");
+var rat2 = new Enemy("Sewer Rat");
+hallway.addEnemy(rat1);
+hallway.addEnemy(rat2);
 function gameLoop() {
     return __awaiter(this, void 0, void 0, function () {
-        var continueGame, initialActionChoices, response, _a, moveActionChoices, listOfRoomNames, i, newMovementOption, moveResponse;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var continueGame, initialActionChoices, response, _a, moveActionChoices, listOfRoomNames, i, newMovementOption, moveResponse, movementReturnVal;
+        var _b;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0:
                     continueGame = true;
                     initialActionChoices = [
@@ -115,7 +160,7 @@ function gameLoop() {
                             choices: initialActionChoices
                         })];
                 case 1:
-                    response = _b.sent();
+                    response = _c.sent();
                     _a = response.value;
                     switch (_a) {
                         case 'look': return [3 /*break*/, 2];
@@ -133,7 +178,11 @@ function gameLoop() {
                     // { title: 'A', value: 'a' },
                     // { title: 'B', value: 'b' },                
                     ];
-                    listOfRoomNames = player.getLocation().getNamesOfConnectingRooms();
+                    listOfRoomNames = (_b = player.getLocation()) === null || _b === void 0 ? void 0 : _b.getNamesOfConnectingRooms();
+                    if (listOfRoomNames == undefined) {
+                        console.log('Error: No connecting rooms found');
+                        return [3 /*break*/, 7];
+                    }
                     for (i = 0; i < listOfRoomNames.length; i++) {
                         newMovementOption = {
                             title: listOfRoomNames[i],
@@ -148,9 +197,14 @@ function gameLoop() {
                             choices: moveActionChoices
                         })];
                 case 4:
-                    moveResponse = _b.sent();
+                    moveResponse = _c.sent();
                     console.log(moveResponse);
-                    player.moveToRoomWithName(moveResponse.value);
+                    movementReturnVal = player.moveToRoomWithName(moveResponse.value);
+                    if (movementReturnVal == false) {
+                        console.log('You have reached the end of the game');
+                        continueGame = false;
+                    }
+                    // if something eg. player wins, then game is finished
                     return [3 /*break*/, 7];
                 case 5:
                     console.log('Not yet implemented');
