@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            #readTarget {
+                background-color: blue;
+                color: white;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div>Hello DOM (Document Object Model) World</div>
+
+        <div>Objective is to learn basic DOM CRUD opertions</div>
+        <div id="innerTextTarget">CRUD operations are:<br>
+            <ul>
+                <li>Create</li>
+                <li>Read</li>
+                <li>Update/Modify</li>
+                <li>Delete</li>
+            </ul>
+        </div>
+        <div id="readTarget">This div is the target element for reading the current content</div>
+        <div id="modifyTarget">Initial text before modification</div>
+        <div id="innerHtmlTarget">Hello innerHTML</div>
+
+        <script>
+            // We want to read the content of the element
+            const element = document.getElementById('readTarget');
+            console.log(element.textContent);
+
+            // Next modify the element somehow - modify the text content
+            const modifyElement = document.getElementById('modifyTarget')
+            modifyElement.textContent = "<h1>textContent modified</h1>";
+            modifyElement.style.backgroundColor = "red";
+
+            // innerHTML modification
+            const innerHtmlTarget = document.querySelector('#innerHtmlTarget');
+            innerHtmlTarget.innerHTML = "<h1>innerHTML modified</h1>";
+
+            // innerText get
+            const innerTextTarget = document.querySelector('#innerTextTarget');
+            console.log(innerTextTarget.innerText);
+            innerTextTarget.innerText = "<h1>innerText set</h1>"
+        </script>
+    </body>
+</html>
