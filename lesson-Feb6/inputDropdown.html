@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .input-dropdown-container {
+                width: 400px;
+                position: relative;
+            }
+            .input-dropdown-container input {
+                border: 2px solid #ffb900;
+                padding: 10px;
+                border-radius: 5px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .input-dropdown-container ul {
+                padding: 0px;
+                margin: 0px;
+            }
+
+            .input-dropdown-container li {
+                list-style-type: none;
+                padding: 10px;
+                border: 1px solid #ffb900;
+                border-top: none;
+                cursor: pointer;
+            }
+
+            .input-dropdown-container li:hover {
+                background-color: #ffb900;
+                color: white;
+            }
+
+            .dropdown-content {
+                position: absolute;
+                width: 100%;
+                top: 100%;
+                background-color: white;                
+            }
+
+            .dropdown-hidden {
+                display: none;
+            }
+
+
+        </style>
+    </head>
+    <body>
+
+        <div class="input-dropdown-container">
+            <input type="text" placeholder="Where are you going?" onfocus="showDropdown()" onfocusout="//hideDropdown()">
+            <div class="dropdown-content dropdown-hidden">
+                <ul>
+                    <li onclick="selectDropdownItem(this)">Helsinki</li>
+                    <li onclick="selectDropdownItem(this)">Stockholm</li>
+                    <li onclick="selectDropdownItem(this)">Oslo</li>
+                    <li onclick="selectDropdownItem(this)">Copenhagen</li>
+                    <li onclick="selectDropdownItem(this)">Reykjavik</li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pretium sapien quam, vel interdum nunc vestibulum eget. Mauris velit libero, aliquet ut nisi vitae, euismod egestas libero. Duis dolor velit, condimentum lobortis tortor eu, tincidunt viverra tellus. Proin feugiat sollicitudin justo, at congue diam tincidunt vitae. Quisque neque nisi, porttitor sed consequat id, posuere tristique urna. Vivamus posuere dui ut risus ultrices, quis lobortis felis ullamcorper. Etiam lacinia, sapien congue faucibus dignissim, elit erat condimentum lorem, sit amet aliquam eros tortor eget mi. Aliquam sit amet risus euismod, accumsan nibh at, ullamcorper magna.
+            </p>
+            <p>
+            Proin iaculis vehicula vulputate. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In massa dolor, gravida eu augue vitae, faucibus pretium odio. Nam eleifend sit amet augue semper laoreet. Vivamus eu euismod quam. Aenean non velit eu mauris pulvinar lobortis. Aenean sed porttitor eros, eget malesuada tortor. Vestibulum euismod laoreet nulla, eget pretium tortor vulputate sit amet. Praesent luctus urna quis pellentesque hendrerit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Cras id urna nec nibh egestas malesuada. Cras iaculis id augue ut tempor. Mauris id orci pellentesque, bibendum lorem vel, convallis odio. Fusce suscipit viverra gravida.
+            </p>
+            <p>
+            Donec luctus sapien ipsum, sed feugiat libero porttitor ut. Phasellus tincidunt felis neque, non volutpat felis mollis suscipit. Duis sed aliquet purus. Proin facilisis risus nibh, sit amet blandit enim vestibulum ultrices. Maecenas at massa massa. Pellentesque interdum eu metus non varius. Nulla faucibus commodo nunc in ullamcorper. Cras scelerisque magna ex, vitae feugiat leo ultricies non. Etiam tincidunt enim at ultricies mollis. Nam laoreet sapien vitae faucibus luctus.
+            </p>
+            <p>
+            Quisque sit amet volutpat velit. Mauris pharetra vel metus quis finibus. Sed vitae iaculis mi. Fusce tempus arcu ac ligula maximus, nec tempor odio ullamcorper. Maecenas at blandit est, at faucibus orci. Sed tincidunt, odio vitae pellentesque euismod, orci neque venenatis quam, eu rutrum elit nibh in lacus. In dapibus venenatis dapibus. Integer ac erat auctor, porttitor nisl vel, pharetra metus. Etiam sed aliquam lectus. Fusce ut imperdiet eros. Vestibulum imperdiet dignissim lorem, non vehicula erat ornare ac. Aenean ut posuere orci. Pellentesque laoreet ac ipsum ac suscipit. Sed tristique nulla a arcu porta bibendum.
+            </p>
+        </div>
+
+        <script>
+            function showDropdown() {
+                console.log('yay');
+                const dropdownContent = document.querySelector('.dropdown-hidden');
+                if(dropdownContent == null) {
+                    console.log('Unable to select dropdown-content');
+                    return;
+                }
+                dropdownContent.classList.remove('dropdown-hidden');
+            }
+
+            function hideDropdown() {
+                console.log('nay');
+                const dropdownContent = document.querySelector('.dropdown-content')
+                if(dropdownContent == null) {
+                    console.log('Unable to select dropdown-content');
+                    return;
+                }
+                dropdownContent.classList.add('dropdown-hidden');
+            }
+
+            function selectDropdownItem(element) {
+                console.log('dropdown item selected ' + element.textContent);
+
+                const input = document.querySelector('.input-dropdown-container input');
+                if(input == null) {
+                    console.log('Unable to select input field');
+                    return;
+                }
+
+                input.value = element.textContent;
+
+                hideDropdown();
+            }
+        </script>
+
+    </body>
+</html>
