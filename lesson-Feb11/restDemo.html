@@ -14,8 +14,30 @@
                 const data = await response.json();
                 console.log(data);
 
-                
+                console.time('createElement');
+                const list = document.querySelector('#product-list');
+                for(let i = 0; i < data.products.length; i++) {
+                    // step 1 print the data (product name and price) to the console
 
+                    console.log(data.products[i].title);
+                    console.log(data.products[i].price);
+
+                    // step 2 create the required HTML elements 
+                    // and append them to the product-list div
+                    const productDiv = document.createElement('div');
+                    const productHeading = document.createElement('h2');
+                    const productPrice = document.createElement('p');
+                    productDiv.className = 'product';
+                    productDiv.appendChild(productHeading);
+                    productDiv.appendChild(productPrice);
+
+                    productHeading.textContent = data.products[i].title;
+                    productPrice.textContent = "Price: $" + data.products[i].price;
+
+                    // step 3 add productDiv to the product-list div
+                    document.querySelector('#product-list').appendChild(productDiv);                
+                }
+                console.timeEnd('createElement');            
             }
         </script>
     </head>
@@ -24,12 +46,6 @@
         <button onclick="getTheData()">Load the product data</button>
 
         <div id="product-list">
-            <!-- The product list will be displayed here -->
-             <div class="product">
-                <h2>Product 1</h2>
-                <p>Price: $100</p>
-             </div>
-
         </div>
 
 
